@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: sans-serif;
+      }
+
+      form {
+        margin: 0 auto;
+      }
+
+      input {
+        margin: 0.5rem 0;
+        padding: 0.2rem 0;
+      }
+
+      #btn-submit {
+        padding: 0.5em 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="POST" id="user-form">
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" id="firstName" />
+      </div>
+      <div>
+        <label for="lastName">Last Name: </label>
+        <input type="text" name="lastName" id="lastName" />
+      </div>
+      <button type="submit" id="btn-submit">Save</button>
+    </form>
+
+    <script>
+      let form = document.getElementById("user-form");
+      let submitBtn = document.querySelector("#btn-submit");
+      let url = `http://localhost:8000/user`;
+
+      const handleClick = (e) => {
+        e.preventDefault();
+
+        fetch(url, {
+          method: "POST",
+          "Content-Type": "multipart/form-data",
+          body: new FormData(form),
+        })
+          .then((response) => console.log(response))
+          .catch((err) => {
+            alert(err);
+          });
+      };
+
+      submitBtn.addEventListener("click", handleClick);
+    </script>
+  </body>
+</html>
